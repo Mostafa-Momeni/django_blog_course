@@ -1,5 +1,10 @@
 {% extends '_base.html' %}
+
 {% load static %}
+
+{% block title %}
+Home 
+{% endblock title %}
 
 {% block content %}
     <section class="blog_area section-padding">
@@ -7,49 +12,70 @@
             <div class="row">
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
-                        <article class="blog_item">
-                            <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="{% static 'assets/img/blog/single_blog_1.png' %}" alt="">
-                                <a href="#" class="blog_item_date">
-                                    <h3>15</h3>
-                                    <p>Jan</p>
-                                </a>
+                        {% if post_list %}
+                            {% for post in post_list %}
+                                <article class="blog_item">
+                                    <div class="blog_item_img">
+                                        {% if post.photo %}
+                                            <img class="card-img rounded-0" src="{{ post.photo.url }}" alt="{{ post.title }}">
+                                        {% else %}
+                                            <img class="card-img rounded-0" src="{% static 'assets/img/blog/placeholder.jpg' %}" alt="No image">
+                                        {% endif %}
+                                    
+                                        <a href="#" class="blog_item_date">
+                                            <time datetime="2020-01-01">
+                                                <h3>{{ post.date|date:"d" }}</h3>
+                                                <p>{{ post.date|date:"M" }}</p>
+                                            </time>
+                                        </a>
+                                    </div>
+                                    <div class="blog_details">
+                                        <a class="d-inline-block" href="{% url 'post_detail' post.pk %}">
+                                            <h2>{{ post.title }}</h2>
+                                        </a>
+                                        <p>{{ post.excerpt }}</p>
+                                        <ul class="blog-info-link">
+                                            <li><a href="#"><i class="fa fa-clock"></i><time datetime="2020-01-01">{{ post.date }}</time></a></li>
+                                            <li><a href="#"><i class="fa fa-user"></i> {{ post.author}}</a></li>
+                                            <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                            <li><a href="#"><i class="fa fa-thumbs-up"></i> 4 Likes</a></li>
+                                            <li><a href="#"><i class="fa fa-thumbs-down"></i> 4 Dislikes</a></li>
+                                        </ul>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                                <!--================ pagination =================-->
+                                <nav class="blog-pagination justify-content-center d-flex">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a href="#" class="page-link" aria-label="Previous">
+                                                <i class="ti-angle-left"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link">1</a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a href="#" class="page-link">2</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="#" class="page-link" aria-label="Next">
+                                                <i class="ti-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <!--================ pagination =================-->
+                        {% else %}
+                            <h1>No post is aveilable! </h1>
+                            <br>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-success ml-3">
+                                    <i class="bi bi-file-earmark-plus"></i>
+                                    <a href="{% url 'post_new' %}">Add new post</a>
+                                </button>
                             </div>
-
-                            <div class="blog_details">
-                                <a class="d-inline-block" href="single-blog.html">
-                                    <h2>Google inks pact for new 35-storey office</h2>
-                                </a>
-                                <p>That dominion stars lights dominion divide years for fourth have don't stars is that
-                                    he earth it first without heaven in place seed it second morning saying.</p>
-                                <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
-                                </ul>
-                            </div>
-                        </article>
-                        <!--================ pagination =================-->
-                        <nav class="blog-pagination justify-content-center d-flex">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
-                                        <i class="ti-angle-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
-                                        <i class="ti-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                        <!--================ pagination =================-->
+                        {% endif %}
                     </div>
                 </div>
                 <!--================ sidebar =================-->

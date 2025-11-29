@@ -7,11 +7,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>News  HTML-5 Template </title>
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
+    {% comment %} <link rel="manifest" href="site.webmanifest"> {% endcomment %}
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+    {% comment %} Bootstrap {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
@@ -91,24 +96,41 @@
                                 </div> {% endcomment %}
                                 <!-- Main-menu -->
                                 <div class="main-menu d-none d-md-block">
-                                    <nav>                  
+                                    <nav  class="navbar" id="navbar">                  
                                         <ul id="navigation">
-                                            <li><a href="home.html">Home</a></li>
-                                            <li><a href="#">about</a></li>
-                                            <li><a href="#">Category</a></li>
-                                            <li><a href="3">Latest News</a></li>
-                                            <li><a href="#">Pages</a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="blog_details.html">Blog Details</a></li>
-                                                    <li><a href="elements.html">Element</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a href="{% url 'home' %}">Home</a></li>
+                                            {% if user.is_authenticated %}
+                                                <li><a href="{% url 'post_new' %}">Add new post</a></li>
+                                                <li class="dropdown">
+                                                    <a href="#">
+                                                        {{ user.username }} 
+                                                        <span><i class="bi bi-caret-down-fill "></i></span>
+                                                    </a>
+                                                    <ul class="submenu">
+                                                        <li>
+                                                            <li><a href="{% url 'password_change' %}">Password Change</a></li>
+                                                            <li><a href="{% url 'password_reset' %}">Password Reset</a></li>
+                                                            <li><a href="{% url 'logout' %}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                <li class="dropdown">
+                                                    <a href="#">User <span><i class="bi bi-caret-down-fill "></i></span></a>
+                                                {% comment %} <li class="dropdown"><a href="#">User <span><i class="bi bi-chevron-down"></i></span></a> {% endcomment %}
+                                                    <ul class="submenu">
+                                                        <li><a href="{% url 'login' %}">Login</a></li>
+                                                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                                                    </ul>
+                                                </li>
+                                            {% endif %}
                                         </ul>
                                     </nav>
                                 </div>
-                            </div>             
+                            </div>
+                            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+                                {% csrf_token %}
+                            </form>
                             <div class="col-xl-4 col-lg-4 col-md-4">
                                 <div class="header-right f-right d-none d-lg-block">
                                     <!-- Heder social -->
@@ -135,7 +157,6 @@
        </div>
         <!-- Header End -->
     </header>
-
     <!--================Blog Area =================-->
     <main id="main">
         {% block content %}
@@ -244,38 +265,38 @@
 
     <!-- JS here -->
 
-    <script src="./{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
     <!-- Jquery, Popper, Bootstrap -->
-    <script src="./{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
-    <script src="./{% static 'assets/js/popper.min.js' %}"></script>
-    <script src="./{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
     <!-- Jquery Mobile Menu -->
-    <script src="./{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.slicknav.min.js' %}"></script>
 
     <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="./{% static 'assets/js/owl.carousel.min.js' %}"></script>
-    <script src="./{% static 'assets/js/slick.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/js/slick.min.js' %}"></script>
 
     <!-- One Page, Animated-HeadLin -->
-    <script src="./{% static 'assets/js/wow.min.js' %}"></script>
-    <script src="./{% static 'assets/js/animated.headline.js' %}"></script>
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/animated.headline.js' %}"></script>
     
     <!-- Scrollup, nice-select, sticky -->
-    <script src="./{% static 'assets/js/jquery.scrollUp.min.js' %}"></script>
-    <script src="./{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
-    <script src="./{% static 'assets/js/jquery.sticky.js' %}"></script>
-    <script src="./{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.scrollUp.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.magnific-popup.js' %}"></script>
 
     <!-- contact js -->
-    <script src="./{% static 'assets/js/contact.js' %}"></script>
-    <script src="./{% static 'assets/js/jquery.form.js' %}"></script>
-    <script src="./{% static 'assets/js/jquery.validate.min.js' %}"></script>
-    <script src="./{% static 'assets/js/mail-script.js' %}"></script>
-    <script src="./{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'assets/js/contact.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.form.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'assets/js/mail-script.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
     
     <!-- Jquery Plugins, main Jquery -->	
-    <script src="./{% static 'assets/js/plugins.js' %}"></script>
-    <script src="./{% static 'assets/js/main.js' %}"></script>
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
 
 </body>
 

@@ -1,0 +1,88 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+Update Post
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="col-12">
+        <h1>Update Blog Post</h1>
+        <br>
+        <div class="container" data-aos="fade-up">
+            <div id="blog" class="blog">
+                <div class="row">
+                    <div class="col-lg-12 entries">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            {{ form|crispy }}
+                            <!-- نمایش عکس فعلی و پیش‌نمایش -->
+                            <div class="mb-4">
+                                <h5>Post Photo:</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {% if form.instance.photo %}
+                                        <div class="current-photo">
+                                            <p class="fw-bold">Current Photo:</p>
+                                            <img src="{{ form.instance.photo.url }}" alt="Current post photo" 
+                                                 class="img-thumbnail w-100" style="max-height: 250px;">
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="photo-preview">
+                                            <p class="fw-bold">New Photo Preview:</p>
+                                            <img id="photoPreview" src="{% if form.instance.photo %}{{ form.instance.photo.url }}{% endif %}" 
+                                                 alt="Photo preview" class="img-thumbnail w-100" style="max-height: 250px; display: {% if form.instance.photo %}block{% else %}none{% endif %};">
+                                            <div id="noPreview" class="text-muted" style="display: {% if not form.instance.photo %}block{% else %}none{% endif %};">
+                                                No photo selected
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-success ml-3">Update Post</button>
+                                <a href="{% url 'post_detail' form.instance.pk %}" class="btn btn-success ml-3">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function previewImage(input) {
+    const preview = document.getElementById('photoPreview');
+    const noPreview = document.getElementById('noPreview');
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            noPreview.style.display = 'none';
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        // اگر فایل جدید انتخاب نشد، عکس فعلی را نشان بده
+        {% if form.instance.photo %}
+        preview.src = "{{ form.instance.photo.url }}";
+        preview.style.display = 'block';
+        noPreview.style.display = 'none';
+        {% else %}
+        preview.style.display = 'none';
+        noPreview.style.display = 'block';
+        {% endif %}
+    }
+}
+</script>
+{% endblock content %}

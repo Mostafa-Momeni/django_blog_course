@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,8 +40,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # LOCAL
-    'post',
+    'blog',
+    'accounts',
+    
+    # Therd partner
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
+############# crispy forms setings #############
+CRISPY_ALLOWED_TEMPLATE_PACKs = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -125,3 +137,13 @@ STATICFILES_DIRS = [BASE_DIR.joinpath("static")]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
+############## Email ##################
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+############# Media Folder settings ###########
+MEDIA_ROOT = os.path.join(BASE_DIR.joinpath("media"))
+MEDIA_URL = '/media/'

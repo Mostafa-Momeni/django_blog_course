@@ -1,0 +1,41 @@
+{% extends '_base.html' %}
+
+{% block title %}
+Delete Post
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="col-12">
+        <h1>Delete Blog Post</h1>
+        <br>
+        <div class="container" data-aos="fade-up">
+            <div class="blog">
+                <div class="row">
+                    <div class="col-lg-12 entries">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="alert alert-warning">
+                                <h4>Warning!</h4>
+                                <p>Are you sure you want to delete "<strong>{{ post.title }}</strong>"?</p>
+                                <p class="mb-0">This action cannot be undone.</p>
+                            </div>
+                            <br>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-success ml-3">
+                                    <i class="bi bi-trash"></i> Yes, Delete
+                                </button>
+                                {% if post.pk %}
+                                    <a href="{% url 'post_detail' post.pk %}" class="btn btn-success ml-3">Cancel</a>
+                                {% else %}
+                                    <a href="{% url 'home' %}" class="btn btn-success ml-3">Cancel</a>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
