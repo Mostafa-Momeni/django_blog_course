@@ -1,0 +1,266 @@
+{% extends '_base.html' %}
+
+{% comment %} {% load crispy_forms_tags %} {% endcomment %}
+
+{% load static %}
+
+{% block title %}
+Post Detail
+{% endblock title %}
+
+{% block content %}
+    <section class="blog_area single-post-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    <div class="single-post">
+                        <div class="feature-img">
+                            {% if post.photo %}
+                                <img class="card-img rounded-0" src="{{ post.photo.url }}" alt="{{ post.title }}">
+                            {% else %}
+                                <img class="card-img rounded-0" src="{% static 'assets/img/blog/placeholder.jpg' %}" alt="No image">
+                            {% endif %}
+                        </div>
+                        <div class="blog_details">
+                            <h1>{{ post.title }}</h1>
+                            <ul class="blog-info-link">
+                                <li><a href="#"><i class="fa fa-clock"></i><time datetime="2020-01-01">{{ post.date }}</time></a></li>
+                                <li><a href="#"><i class="fa fa-user"></i> {{ post.author}}</a></li>
+                                <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                <li><a href="#"><i class="fa fa-thumbs-up"></i> 4 Likes</a></li>
+                                <li><a href="#"><i class="fa fa-thumbs-down"></i> 4 Dislikes</a></li>
+                            </ul>
+                            <hr>
+                            <h3 class="excert">{{ post.excerpt }}</h3>
+                            <br>
+                            <p>{{ post.body }}</p>
+                            <div class="quote-wrapper">
+                                <div class="quotes">
+                                    {{ post.quotes }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="navigation-top">
+                        <div class="d-sm-flex justify-content-between align-items-center text-center">
+                            <!-- Like -->
+                            <div class="d-flex gap-4 align-items-center ml-2">
+                                <!-- لایک -->
+                                <a href="#" class="text-decoration-none text-dark like-info">
+                                    <span class="align-middle"><i class="fa fa-thumbs-up"></i></span> 
+                                    <span class="like-count">12</span>
+                                </a>
+
+                                <!-- دیس لایک -->
+                                <a href="#" class="text-decoration-none text-dark like-info ml-2">
+                                    <span class="align-middle"><i class="fa fa-thumbs-down"></i></span> 
+                                    <span class="dislike-count">2</span>
+                                </a>
+                            </div>
+                            {% if user.username == post.author.username %}
+                                <div class="d-flex gap-4">
+                                    <!-- Update Button -->
+                                    <p class="like-info mb-0">
+                                        <a href="{% url 'update' post.pk %}" class="text-decoration-none text-dark">
+                                            <span class="align-middle"><i class="bi bi-pencil-square"></i></span> Update Post
+                                        </a>
+                                    </p>
+                                    <!-- Delete Button -->
+                                    <p class="like-info mb-0">
+                                        <a href="{% url 'delete' post.pk %}" class="text-decoration-none text-dark ml-2">
+                                            <span class="align-middle"><i class="bi bi-trash"></i></span> Delete Post
+                                        </a>
+                                    </p>
+                                </div>
+                            {% endif %}
+                            <ul class="social-icons">
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="navigation-area">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+                                    <div class="thumb">
+                                        <a href="#">
+                                            <img class="img-fluid" src="{% static 'assets/img/post/preview.png' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="arrow">
+                                        <a href="#">
+                                            <span class="lnr text-white ti-arrow-left"></span>
+                                        </a>
+                                    </div>
+                                    <div class="detials">
+                                        <p>Prev Post</p>
+                                        <a href="#">
+                                            <h4>Space The Final Frontier</h4>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                                    <div class="detials">
+                                        <p>Next Post</p>
+                                        <a href="#">
+                                            <h4>Telescopes 101</h4>
+                                        </a>
+                                    </div>
+                                    <div class="arrow">
+                                        <a href="#">
+                                            <span class="lnr text-white ti-arrow-right"></span>
+                                        </a>
+                                    </div>
+                                        <div class="thumb">
+                                            <a href="#">
+                                                <img class="img-fluid" src="{% static 'assets/img/post/next.png' %}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog-author">
+                            <div class="media align-items-center">
+                                <img src="{{ post.author.photo.url }}" alt="">
+                                <div class="media-body">
+                                    <a href="#">
+                                        <h4>{{ post.author }}</h4>
+                                    </a>
+                                    <div class="social-links">
+                                        <ul class="header-social">    
+                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <p>{{ post.author.about }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comments-area">
+                            {% if post.comments.count > 1 %}
+                                <h4 class="comments-count">{{ post.comments.count }} Comments</h4>
+                            {% else %}
+                                <h4 class="comments-count">{{ post.comments.count }} Comment</h4>
+                            {% endif %}
+                            {% for comment in post.comments.all %}
+                                <div class="comment-list">
+                                    <!-- کامنت اصلی -->
+                                    <div class="single-comment justify-content-between d-flex" id="comment-{{ comment.id }}">
+                                        <div class="user justify-content-between d-flex">
+                                            <div class="thumb">
+                                                <img src="{{ comment.author.photo.url }}">
+                                            </div>
+                                            <div class="desc">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <h5>
+                                                            <a href="#">{{ comment.author }}</a>
+                                                        </h5>
+                                                        <p class="date">{{ comment.created_at|date:"F j, Y" }} at {{ comment.created_at|time:"g:i A" }} </p>
+                                                    </div>
+                                                    <div class="reply-btn">
+                                                        <button type="button" class="btn-reply text-uppercase" data-comment-id="{{ comment.id }}">reply</button>
+                                                    </div>
+                                                </div>
+                                                <p class="comment">{{ comment.body }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- hideReplyForm -->
+                                    <div class="reply-form" id="reply-form-{{ comment.id }}" style="display: none; margin-right: 20px;">
+                                        <h5>Reply to {{ comment.author.username }}</h5>
+                                        <form method="post" action="{% url 'add_reply' comment.id %}" class="reply-form-ajax" data-comment-id="{{ comment.id }}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                            <div class="form-group">
+                                                {% comment %} {{ reply_form.body }} {% endcomment %}
+                                                <textarea name="body" class="form-control" rows="3" placeholder="پاسخ خود را وارد کنید..." required></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Send reply</button>
+                                            <button type="button" class="btn btn-secondary btn-cancel-reply" data-comment-id="{{ comment.id }}">Cancel</button>
+                                        </form>
+                                    </div>
+                                    <br>
+                                    <!-- Reply -->
+                                    {% for reply in comment.get_replies %}
+                                    <div class="single-comment justify-content-between d-flex comment-level-1" id="comment-{{ reply.id }}">
+                                        <div class="user justify-content-between d-flex">
+                                            <div class="thumb">
+                                                <img src="{{ reply.author.photo.url }}">
+                                            </div>
+                                            <div class="desc">
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex align-items-center">
+                                                        <h5><a href="#">{{ reply.author.username }}</a></h5>
+                                                        <p class="date">{{ reply.created_at|date:"F j, Y" }} at {{ reply.created_at|time:"g:i A" }}</p>
+                                                    </div>
+                                                </div>
+                                                <p class="comment">{{ reply.body }}</p>
+                                            </div>
+                                            <div class="reply-btn">
+                                                <button type="button" class="btn-reply text-uppercase" data-comment-id="{{ reply.id }}">reply</button>
+                                            </div>
+                                        </div>
+                                        <div class="reply-form comment-level-2" id="reply-form-{{ reply.id }}" style="display: none;">
+                                            <h5>Reply to {{ reply.author.username }}</h5>
+                                            <form method="post" action="{% url 'add_reply' reply.id %}" class="reply-form-ajax" data-comment-id="{{ reply.id }}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="parent_id" value="{{ reply.id }}">
+                                                <div class="form-group">
+                                                    <textarea name="body" class="form-control" rows="3" placeholder="پاسخ خود را وارد کنید..." required></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Send reply</button>
+                                                <button type="button" class="btn btn-secondary btn-cancel-reply" data-comment-id="{{ reply.id }}">Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            {% empty %}
+                                <p>No Comment</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="comment-form">
+                        <h4>Leave a Reply</h4>
+                        <form class="form-contact comment_form" action="#" id="commentForm">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control" name="name" id="name" type="text" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control" name="email" id="email" type="email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input class="form-control" name="website" id="website" type="text" placeholder="Website">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="button button-contactForm btn_1 boxed-btn">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% block sidebar %}
+                    {% include "sidebar.html" %}
+                {% endblock sidebar %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}

@@ -1,0 +1,322 @@
+/* سیستم نظرات */
+.comments-section {
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.comments-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.comments-header h4 {
+    color: #333;
+    font-weight: 600;
+}
+
+/* استایل هر نظر */
+.comment-item {
+    padding: 20px;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.comment-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.comment-item.level-0 {
+    border-left: 4px solid #007bff;
+}
+
+.comment-item.level-1 {
+    margin-right: 40px;
+    border-left: 4px solid #28a745;
+    background-color: #f8f9fa;
+}
+
+.comment-item.level-2 {
+    margin-right: 80px;
+    border-left: 4px solid #ffc107;
+    background-color: #f1f3f4;
+}
+
+.comment-item.level-3 {
+    margin-right: 120px;
+    border-left: 4px solid #dc3545;
+    background-color: #fff9e6;
+}
+
+/* هدر نظر */
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.comment-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.comment-author .thumb img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #dee2e6;
+}
+
+.author-info h6 {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+
+.comment-date {
+    font-size: 12px;
+    color: #6c757d;
+    display: block;
+}
+
+/* دکمه‌های اقدام */
+.comment-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-reply {
+    padding: 5px 15px;
+    font-size: 13px;
+    color: #007bff;
+    background: transparent;
+    border: 1px solid #007bff;
+    border-radius: 20px;
+    transition: all 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-reply:hover {
+    background: #007bff;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* متن نظر */
+.comment-body {
+    padding: 15px 0;
+    line-height: 1.8;
+    color: #444;
+    font-size: 15px;
+}
+
+/* فرم پاسخ */
+.reply-form-container {
+    margin: 15px 0;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.reply-form-inner h6 {
+    color: #495057;
+    margin-bottom: 15px;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.reply-form .form-group {
+    margin-bottom: 15px;
+}
+
+.reply-form .form-control {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 12px;
+    resize: vertical;
+    font-size: 14px;
+}
+
+.reply-form .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 8px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    padding: 8px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+    border-color: #4e555b;
+}
+
+/* فرم جدید */
+.new-comment-form {
+    margin-top: 40px;
+    padding: 25px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.new-comment-form h4 {
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+.new-comment-form .form-control {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    resize: vertical;
+    font-size: 15px;
+}
+
+.new-comment-form .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+}
+
+.new-comment-form .btn-primary {
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* پاسخ‌ها */
+.replies-list {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #dee2e6;
+}
+
+/* حالت‌های مختلف */
+.no-comments {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+    background: white;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+/* انیمیشن‌ها */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.comment-item {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* استایل‌های واکنش‌گرا */
+@media (max-width: 768px) {
+    .comments-section {
+        padding: 20px;
+    }
+    
+    .comment-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .comment-actions {
+        align-self: flex-start;
+    }
+    
+    .comment-item.level-1 {
+        margin-right: 20px;
+    }
+    
+    .comment-item.level-2 {
+        margin-right: 40px;
+    }
+    
+    .comment-item.level-3 {
+        margin-right: 60px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn-reply {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+/* اسپینر */
+.spinner-border {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* آلرت‌ها */
+.custom-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 300px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

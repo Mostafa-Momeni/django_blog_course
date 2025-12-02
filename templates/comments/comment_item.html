@@ -1,0 +1,55 @@
+<div class="comment-item level-{{ level }}" id="comment-{{ comment.id }}">
+    <div class="comment-header">
+        <div class="comment-author">
+            <div class="thumb">
+                <img src="{{ comment.author.photo.url }}" alt="{{ comment.author.username }}">
+            </div>
+            <div class="author-info">
+                <h6>{{ comment.author.username }}</h6>
+                <span class="comment-date">
+                    {{ comment.created_at|date:"F j, Y" }} در {{ comment.created_at|time:"g:i A" }}
+                </span>
+            </div>
+        </div>
+        <div class="comment-actions">
+            <button class="btn btn-link btn-reply text-uppercase" data-comment-id="{{ comment.id }}">
+                <i class="fa fa-reply"></i> پاسخ
+            </button>
+        </div>
+    </div>
+    
+    <div class="comment-body">
+        <p>{{ comment.body }}</p>
+    </div>
+    
+    <!-- فرم پاسخ (مخفی در ابتدا) -->
+    <div class="reply-form-container" id="reply-form-container-{{ comment.id }}" style="display: none;">
+        <div class="reply-form-inner">
+            <h6>پاسخ به {{ comment.author.username }}</h6>
+            <!-- اضافه کردن action به فرم -->
+            <form class="reply-form" 
+                  data-comment-id="{{ comment.id }}"
+                  action="{% url 'add_comment' post.id %}" 
+                  method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                <div class="form-group">
+                    <textarea name="body" class="form-control" rows="3" placeholder="پاسخ خود را بنویسید..." required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-sm">ارسال پاسخ</button>
+                    <button type="button" class="btn btn-secondary btn-sm btn-cancel-reply" data-comment-id="{{ comment.id }}">انصراف</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- پاسخ‌ها -->
+    {% if comment.replies.all %}
+        <div class="replies-list">
+            {% for reply in comment.replies.all %}
+                {% include 'comments/comment_item.html' with comment=reply level=level|add:1 %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
